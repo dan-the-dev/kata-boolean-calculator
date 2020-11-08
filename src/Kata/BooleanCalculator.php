@@ -4,8 +4,12 @@ namespace Kata;
 
 class BooleanCalculator
 {
-    public function handle(): bool
+    public function handle(string $booleanString): bool
     {
-        return true;
+        if ($booleanString === 'TRUE') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

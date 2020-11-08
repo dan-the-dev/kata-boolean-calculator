@@ -17,9 +17,18 @@ class BooleanCalculatorTest extends TestCase
         $this->booleanCalculator = new BooleanCalculator();
     }
 
-    public function testShallPass(): void
+    public function testReturnsTrueWhenSingleValueTrue(): void
     {
-        $this->assertEquals(1, 1);
+        $actual = $this->booleanCalculator->handle("TRUE");
+
+        $this->assertEquals(true, $actual);
+    }
+
+    public function testReturnsFalseWhenSingleValueFalse(): void
+    {
+        $actual = $this->booleanCalculator->handle("FALSE");
+
+        $this->assertEquals(false, $actual);
     }
 
 }
