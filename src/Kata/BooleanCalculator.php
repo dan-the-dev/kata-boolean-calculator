@@ -4,20 +4,17 @@ namespace Kata;
 
 class BooleanCalculator
 {
+
     public function handle(string $booleanString): bool
     {
-        switch($booleanString){
-            case 'TRUE':
-            case 'FALSE':
+        $booleanStringArray = explode(' ', $booleanString);
+        switch(count($booleanStringArray)){
+            case 1:
                 return $this->handleSingleValue($booleanString);
-            case 'NOT TRUE':
-            case 'NOT FALSE':
+            case 2:
                 return $this->handleNotOperator($booleanString);
-            case 'TRUE AND TRUE':
-            case 'TRUE AND FALSE':
-            case 'FALSE AND TRUE':
-            case 'FALSE AND FALSE':
-                return $this->handleAndOperator($booleanString);
+            case 3:
+                return $this->handleAndOrOperators($booleanStringArray);
         }
     }
 
@@ -32,10 +29,21 @@ class BooleanCalculator
         return !filter_var($booleanString, FILTER_VALIDATE_BOOLEAN);
     }
 
-    private function handleAndOperator(string $booleanStringWithAnd): bool
+    private function handleAndOrOperators(array $booleanStringArray): bool
     {
-        $leftBoolean = explode(' ', $booleanStringWithAnd)[0];
-        $rightBoolean = explode(' ', $booleanStringWithAnd)[2];
-        return $this->handleSingleValue($leftBoolean) && $this->handleSingleValue($rightBoolean);
+        $leftBoolean = $booleanStringArray[0];
+        $operator = $booleanStringArray[1];
+        $rightBoolean = $booleanStringArray[2];
+        $result = null;
+        switch ($operator){
+            case 'AND':
+                $result = $this->handleSingleValue($leftBoolean) && $this->handleSingleValue($rightBoolean);
+                break;
+            case 'OR':
+                $result = $this->handleSingleValue($leftBoolean) || $this->handleSingleValue($rightBoolean);
+                break;
+        }
+        return $result;
     }
+
 }

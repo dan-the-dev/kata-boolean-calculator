@@ -45,7 +45,7 @@ class BooleanCalculatorTest extends TestCase
         $this->assertEquals(false, $actual);
     }
 
-    public function testParsingAndOperatorWithTrueAndTrueeToTrue(): void
+    public function testParsingAndOperatorWithTrueAndTrueToTrue(): void
     {
         $actual = $this->booleanCalculator->handle('TRUE AND TRUE');
 
@@ -71,5 +71,26 @@ class BooleanCalculatorTest extends TestCase
         $actual = $this->booleanCalculator->handle('FALSE AND FALSE');
 
         $this->assertEquals(false, $actual);
+    }
+
+    public function testParsingOrOperatorWithTrueOrTrueToTrue(): void
+    {
+        $actual = $this->booleanCalculator->handle('TRUE OR TRUE');
+
+        $this->assertEquals(true, $actual);
+    }
+
+    public function testParsingOrOperatorWithTrueOrFalseToTrue(): void
+    {
+        $actual = $this->booleanCalculator->handle('TRUE OR FALSE');
+
+        $this->assertEquals(true, $actual);
+    }
+
+    public function testParsingOrOperatorWithFalseOrTrueToTrue(): void
+    {
+        $actual = $this->booleanCalculator->handle('FALSE OR TRUE');
+
+        $this->assertEquals(true, $actual);
     }
 }
