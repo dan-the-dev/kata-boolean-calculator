@@ -93,4 +93,25 @@ class BooleanCalculatorTest extends TestCase
 
         $this->assertEquals(true, $actual);
     }
+
+    public function testParsingComplexStringWithMultipleOperators(): void
+    {
+        $actual = $this->booleanCalculator->handle('TRUE OR TRUE OR TRUE AND FALSE');
+
+        $this->assertEquals(true, $actual);
+    }
+
+    public function testParsingASecondComplexStringWithMultipleOperators(): void
+    {
+        $actual = $this->booleanCalculator->handle('TRUE OR FALSE AND NOT FALSE');
+
+        $this->assertEquals(true, $actual);
+    }
+
+    public function testParsingAnotherComplexStringWithMultipleOperators(): void
+    {
+        $actual = $this->booleanCalculator->handle('FALSE OR FALSE AND FALSE OR NOT TRUE AND NOT TRUE');
+
+        $this->assertEquals(FALSE, $actual);
+    }
 }
