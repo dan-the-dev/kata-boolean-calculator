@@ -17,18 +17,59 @@ class BooleanCalculatorTest extends TestCase
         $this->booleanCalculator = new BooleanCalculator();
     }
 
-    public function testReturnsTrueWhenSingleValueTrue(): void
+    public function testParsingSingleValueTrueToTrue(): void
     {
         $actual = $this->booleanCalculator->handle("TRUE");
 
         $this->assertEquals(true, $actual);
     }
 
-    public function testReturnsFalseWhenSingleValueFalse(): void
+    public function testParsingSingleValueFalseToFalse(): void
     {
         $actual = $this->booleanCalculator->handle("FALSE");
 
         $this->assertEquals(false, $actual);
     }
 
+    public function testParsingSingleValueFalseWithNotOperatorToTrue(): void
+    {
+        $actual = $this->booleanCalculator->handle("NOT FALSE");
+
+        $this->assertEquals(true, $actual);
+    }
+
+    public function testParsingSingleValueTrueWithNotOperatorToFalse(): void
+    {
+        $actual = $this->booleanCalculator->handle("NOT TRUE");
+
+        $this->assertEquals(false, $actual);
+    }
+
+    public function testParsingAndOperatorWithTrueAndTrueeToTrue(): void
+    {
+        $actual = $this->booleanCalculator->handle('TRUE AND TRUE');
+
+        $this->assertEquals(true, $actual);
+    }
+
+    public function testParsingAndOperatorWithTrueAndFalseToFalse(): void
+    {
+        $actual = $this->booleanCalculator->handle('TRUE AND FALSE');
+
+        $this->assertEquals(false, $actual);
+    }
+
+    public function testParsingAndOperatorWithFalseAndTrueToFalse(): void
+    {
+        $actual = $this->booleanCalculator->handle('FALSE AND TRUE');
+
+        $this->assertEquals(false, $actual);
+    }
+
+    public function testParsingAndOperatorWithFalseAndFalseToFalse(): void
+    {
+        $actual = $this->booleanCalculator->handle('FALSE AND FALSE');
+
+        $this->assertEquals(false, $actual);
+    }
 }
