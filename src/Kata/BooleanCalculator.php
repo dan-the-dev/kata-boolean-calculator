@@ -2,7 +2,7 @@
 
 namespace Kata;
 
-class Index
+class BooleanCalculator
 {
     public function handle(): bool
     {
